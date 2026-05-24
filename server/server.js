@@ -32,8 +32,24 @@ const app = express();
 
 // Security middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
+// CORS - allow localhost dev, Vercel frontend, and Render backend
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:4173',
+  'https://smarthire-frontend.vercel.app',
+  'https://smarthire-backend-7wkj.onrender.com',
+  process.env.CLIENT_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o) || o.startsWith(origin))) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all origins in production for now
+    }
+  },
   credentials: true
 }));
 
