@@ -3,7 +3,19 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+// Load .env file (only used locally - Render uses dashboard env vars)
 require('dotenv').config();
+
+// Debug: Check which env vars are set (without revealing values)
+if (!process.env.MONGO_URI) {
+  console.error('❌ MONGO_URI is NOT set! Environment variables:');
+  console.error('   MONGO_URI:', process.env.MONGO_URI ? '✓ Set' : '✗ MISSING');
+  console.error('   JWT_SECRET:', process.env.JWT_SECRET ? '✓ Set' : '✗ MISSING');
+  console.error('   NODE_ENV:', process.env.NODE_ENV || 'not set');
+  console.error('');
+  console.error('⚠️  If running on Render: Add MONGO_URI in Dashboard > Environment Variables');
+  console.error('⚠️  If running locally: Create server/.env file from server/.env.example');
+}
 
 const connectDB = require('./config/db');
 const { errorHandler } = require('./utils/AppError');
