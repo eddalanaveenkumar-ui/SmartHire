@@ -1,0 +1,49 @@
+# ==================== Dependencies ====================
+node_modules/
+.pnp
+.pnp.js
+
+# ==================== Environment Files ====================
+.env
+.env.local
+.env.*.local
+
+# ==================== Build Output ====================
+dist/
+build/
+client/dist/
+
+# ==================== IDE & Editor ====================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ==================== OS Files ====================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==================== Python Virtual Environment ====================
+.venv/
+venv/
+env/
+
+# ==================== Logs ====================
+*.log
+npm-debug.log*
+
+# ==================== Uploads ====================
+server/uploads/*
+!server/uploads/.gitkeep
+
+# ==================== Coverage ====================
+coverage/
+.coverage
+
+# ==================== Misc ====================
+.cache/
+tmp/
+temp/
