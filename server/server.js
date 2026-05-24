@@ -18,6 +18,7 @@ if (!process.env.MONGO_URI) {
 }
 
 const connectDB = require('./config/db');
+const { startKeepAliveCron } = require('./services/cronService');
 const { errorHandler } = require('./utils/AppError');
 
 // Import routes
@@ -95,6 +96,8 @@ const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`SmartHire Server running on port ${PORT}`);
+    // Start cron jobs after server is up
+    startKeepAliveCron();
   });
 }).catch(err => {
   console.error('Failed to connect to database:', err.message);
