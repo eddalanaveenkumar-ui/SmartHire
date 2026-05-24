@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// Auto-append /api if the VITE_API_URL doesn't already include it
+const rawUrl = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : rawUrl.endsWith('/') ? `${rawUrl}api` : `${rawUrl}/api`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
